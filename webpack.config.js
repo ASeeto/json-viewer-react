@@ -21,8 +21,7 @@ if (fileSystem.existsSync(secretsPath)) {
 var options = {
   entry: {
     popup: path.join(__dirname, "src", "js", "popup.js"),
-    options: path.join(__dirname, "src", "js", "options.js"),
-    background: path.join(__dirname, "src", "js", "background.js")
+    content: path.join(__dirname, "src", "js", "content.js")
   },
   output: {
     path: path.join(__dirname, "build"),
@@ -31,9 +30,12 @@ var options = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        loader: "style-loader!css-loader",
-        exclude: /node_modules/
+        test: /(\.css$)/,
+        loaders: ['style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000'
       },
       {
         test: new RegExp('\.(' + fileExtensions.join('|') + ')$'),
@@ -44,11 +46,17 @@ var options = {
         test: /\.html$/,
         loader: "html-loader",
         exclude: /node_modules/
+      },
+      {
+        test: /\.(js|jsx)$/,
+        loader: "babel-loader",
+        exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    alias: alias
+    alias: alias,
+    extensions: fileExtensions.map(extension => ("." + extension)).concat([".jsx", ".js", ".css"])
   },
   plugins: [
     // clean the build folder
@@ -72,16 +80,6 @@ var options = {
       template: path.join(__dirname, "src", "popup.html"),
       filename: "popup.html",
       chunks: ["popup"]
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "options.html"),
-      filename: "options.html",
-      chunks: ["options"]
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "background.html"),
-      filename: "background.html",
-      chunks: ["background"]
     }),
     new WriteFilePlugin()
   ]

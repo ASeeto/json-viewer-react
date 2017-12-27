@@ -1,0 +1,79 @@
+.json-viewer-react-app {
+  font-family: Arial;
+  overflow-x: hidden;
+}
+
+.json-viewer-react-p {
+  margin: 0;
+}
+
+.json-viewer-react-card {
+  box-shadow:
+    0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  height: 100px;
+  width: 250px;
+}
+
+#json-viewer-react-path {
+  background: #FFF;
+  max-height: 50px;
+  overflow-y: scroll;
+}
+
+.json-viewer-react-title {
+  font-weight: bold;
+}
+
+.json-viewer-react-toggle-toolbar {
+  color: #4A6588;
+  margin: 10px;
+  font-size: 1.5em;
+  transition: all 0.5s;
+}
+
+.json-viewer-react-toggle-toolbar:hover {
+  cursor: pointer;
+  color: #445469;
+}
+
+.json-viewer-react-toolbar {
+  align-items: center;
+  display: flex;
+  position: fixed;
+  margin: 10px;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  transform: translate(0, 0);
+  transition: all 0.5s;
+}
+
+.json-viewer-react-toolbar-transform {
+  transform: translate(285px, 0);
+  background: none;
+}
+
+.json-viewer-react-icon {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 2em;
+  margin: 10px;
+  background: #4A6588;
+  color: #FFF;
+  padding: 10px;
+  border-radius: 50%;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.json-viewer-react-icon:hover {
+  cursor: pointer;
+  background: #445469;
+}
