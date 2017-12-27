@@ -1,0 +1,23 @@
+.json-viewer-react-toolbar {
+  position: fixed;
+  z-index: 200;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+
+.json-viewer-react-toolbar-button {
+  width: 100px;
+  font-size: 9pt;
+  margin: 10px;
+  background: #4A6588;
+  color: #FFF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.json-viewer-react-toolbar-button:hover {
+  cursor: pointer;
+  background: #445469;
+}

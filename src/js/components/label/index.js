@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
 import './styles.css'
 
@@ -16,11 +15,13 @@ export class Label extends React.Component {
   componentDidMount () {
     ReactDOM.findDOMNode(this).addEventListener('mouseenter', (event) => {
       let path = event.target.getAttribute('data-path')
-      document.getElementById('json-viewer-react-path').innerHTML = path
+      const node = document.getElementById('json-viewer-react-path')
+      node.innerHTML = path
+      node.scrollTop = node.scrollHeight;
     })
     ReactDOM.findDOMNode(this).addEventListener('contextmenu', (event) => {
       event.preventDefault()
-      this.refs[this.props.path].classList = 'json-viewer-react-contextmenu json-viewer-react-contextmenu-visible'
+      this.refs[this.props.path].classList = 'json-viewer-react-contextmenu'
       return false
     })
   }
@@ -43,7 +44,7 @@ export class Label extends React.Component {
       id: 'copy-data',
       value: JSON.stringify(_.get(this.props.data, this.props.path), null, 2)
     })
-    this.refs[this.props.path].classList = 'json-viewer-react-contextmenu'
+    this.refs[this.props.path].classList = 'json-viewer-react-contextmenu json-viewer-react-hide'
   }
 
   copyPath (event) {
@@ -52,19 +53,21 @@ export class Label extends React.Component {
       id: 'copy-path',
       value: this.props.path
     })
-    this.refs[this.props.path].classList = 'json-viewer-react-contextmenu'
+    this.refs[this.props.path].classList = 'json-viewer-react-contextmenu json-viewer-react-hide'
   }
 
   render () {
     return (
       <span data-path={this.props.path}>
         {this.props.text}
-        <div ref={this.props.path} className={'json-viewer-react-contextmenu'}>
+        <div ref={this.props.path} className={'json-viewer-react-contextmenu json-viewer-react-hide'}>
           <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.copyPath}>
-            <i className='fa fa-clipboard' /> Copy Path
+            <div className='fa fa-fw fa-clipboard' />
+            <div className='json-viewer-react-contextmenu-option-text'>Copy Path</div>
           </p>
           <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.copyData}>
-            <i className='fa fa-clone' /> Copy Data
+            <div className='fa fa-fw fa-clone' />
+            <div className='json-viewer-react-contextmenu-option-text'>Copy Data</div>
           </p>
         </div>
       </span>

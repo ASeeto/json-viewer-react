@@ -1,5 +1,4 @@
 .json-viewer-react-contextmenu {
-  display: none;
   background: #F8F6F2;
   font-size: 9pt;
   line-height: 12pt;
@@ -7,17 +6,18 @@
   z-index: 100;
 }
 
-.json-viewer-react-contextmenu-visible {
-  display: block;
-}
-
 .json-viewer-react-contextmenu-option {
+  align-items: center;
+  display: flex;
   padding: 10px;
   border: 1px solid #d8d8d8;
-  padding-left: 25px;
 }
 
 .json-viewer-react-contextmenu-option:hover {
   background: #e7e6e3;
   cursor: pointer;
+}
+
+.json-viewer-react-contextmenu-option-text {
+  margin-left: 10px;
 }
