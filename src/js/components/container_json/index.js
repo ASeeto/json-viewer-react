@@ -6,6 +6,8 @@ import {THEMES} from '../../constants'
 import JSONTree from 'react-json-tree'
 import {Label} from '../label/index'
 
+import './styles.css'
+
 export class ContainerJSON extends React.Component {
   constructor () {
     super()
@@ -49,14 +51,16 @@ export class ContainerJSON extends React.Component {
       ? () => true
       : () => false
     return (
-      <JSONTree
-        data={this.props.data}
-        hideRoot
-        theme={theme}
-        invertTheme={this.props.settings.invertTheme}
-        labelRenderer={this.labelRenderer}
-        shouldExpandNode={shouldExpandNode}
-      />
+      <div id='json-viewer-react-json-tree'>
+        <JSONTree
+          data={this.props.data}
+          hideRoot
+          theme={theme}
+          invertTheme={this.props.settings.invertTheme}
+          labelRenderer={this.labelRenderer}
+          shouldExpandNode={shouldExpandNode}
+        />
+      </div>
     )
   }
 }

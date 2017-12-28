@@ -6,7 +6,7 @@ import './styles.css'
 export class ContainerRaw extends React.Component {
   render () {
     return (
-      <div className='json-viewer-react-app-raw'>
+      <div id='json-viewer-react-app-raw' className='json-viewer-react-app-raw'>
         {JSON.stringify(this.props.data, null, 2)}
       </div>
     )
