@@ -47,6 +47,7 @@ export class App extends React.Component {
     return (
       <div className='json-viewer-react-app'>
         <Toolbar
+          data={this.props.data}
           isRaw={this.state.isRaw}
           isExpanded={this.state.isExpanded}
           toggleIsRaw={this.toggleIsRaw}
@@ -57,14 +58,8 @@ export class App extends React.Component {
           data={this.props.data}
           isExpanded={this.state.isExpanded}
           settings={this.props.settings}
-          updateParentState={this.updateParentState}
         />
-        {this.state.isRaw && (
-          <ContainerRaw
-            data={this.props.data}
-            updateParentState={this.updateParentState}
-          />
-        )}
+        {this.state.isRaw && <ContainerRaw data={this.props.data} />}
         {this.state.isLoading && <Spinner />}
       </div>
     )
