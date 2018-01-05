@@ -63,11 +63,11 @@ export class Label extends React.Component {
         <div ref={this.props.path} className={'json-viewer-react-contextmenu json-viewer-react-hide'}>
           <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.copyPath}>
             <div className='fa fa-fw fa-clipboard' />
-            <div className='json-viewer-react-contextmenu-option-text'>Copy Path</div>
+            <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Copy Path</div>
           </p>
           <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.copyData}>
             <div className='fa fa-fw fa-clone' />
-            <div className='json-viewer-react-contextmenu-option-text'>Copy Data</div>
+            <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Copy Data</div>
           </p>
         </div>
       </span>

@@ -4,6 +4,14 @@ import PropTypes from 'prop-types'
 import './styles.css'
 
 export class ContainerRaw extends React.Component {
+  componentDidMount () {
+    document.getElementById('json-viewer-react-json-tree').classList = 'json-viewer-react-hide'
+  }
+
+  componentWillUnmount () {
+    document.getElementById('json-viewer-react-json-tree').classList = ''
+  }
+
   render () {
     return (
       <div id='json-viewer-react-app-raw' className='json-viewer-react-app-raw'>

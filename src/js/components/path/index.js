@@ -16,7 +16,7 @@ export class Path extends React.Component {
 
   render () {
     return (
-      <div className={cx('json-viewer-react-path-container', {'json-viewer-react-path-container-transform': this.state.hide})}>
+      <div className={cx('json-viewer-react-no-select', 'json-viewer-react-path-container', {'json-viewer-react-path-container-transform': this.state.hide})}>
         <div className='json-viewer-react-toggle-path-container' onClick={this.toggle}>
           {this.state.hide ? <i className='fa fa-arrow-left' /> : <i className='fa fa-arrow-right' />}
         </div>

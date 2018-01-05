@@ -6,7 +6,7 @@ import './styles.css'
 export class Toolbar extends React.Component {
   render () {
     return (
-      <div className='json-viewer-react-toolbar'>
+      <div className='json-viewer-react-no-select json-viewer-react-toolbar'>
         {!this.props.isRaw && (
           <div className='json-viewer-react-toolbar-button' onClick={this.props.toggleIsExpanded}>
             {this.props.isExpanded ? 'Collapse All' : 'Expand All'}
