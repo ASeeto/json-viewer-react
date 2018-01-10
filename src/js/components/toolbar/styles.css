@@ -1,6 +1,5 @@
 .json-viewer-react-toolbar {
   position: fixed;
-  z-index: 200;
   top: 0;
   right: 0;
   display: flex;

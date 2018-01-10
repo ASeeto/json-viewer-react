@@ -12,6 +12,7 @@ export class ContainerJSON extends React.Component {
   constructor () {
     super()
     this.labelRenderer = this.labelRenderer.bind(this)
+    this.closeSubview = this.closeSubview.bind(this)
   }
 
   labelRenderer (pathArray) {
@@ -38,11 +39,15 @@ export class ContainerJSON extends React.Component {
 
     return (
       <Label
-        data={this.props.data}
+        {...this.props}
         path={newPath.join('')}
         text={_.last(newPath)}
       />
     )
+  }
+
+  closeSubview () {
+    this.props.updateSubviews({subviewId: this.props.path})
   }
 
   render () {
@@ -51,15 +56,25 @@ export class ContainerJSON extends React.Component {
       ? () => true
       : () => false
     return (
-      <div id='json-viewer-react-json-tree'>
+      <div id='json-viewer-react-json-tree' className={this.props.isSubview ? 'json-viewer-react-sub-json-tree' : ''}>
         <JSONTree
           data={this.props.data}
-          hideRoot
+          hideRoot={this.props.hideRoot}
           theme={theme}
           invertTheme={this.props.settings.invertTheme}
           labelRenderer={this.labelRenderer}
           shouldExpandNode={shouldExpandNode}
         />
+        {this.props.isSubview && (
+          <div className='json-viewer-react-subview-toolbar'>
+            <div className='json-viewer-react-subview-toolbar-close' onClick={this.closeSubview}>
+              Close Subview
+            </div>
+            <div style={{color: theme.base0D}} className='json-viewer-react-subview-toolbar-text'>
+              {this.props.text}
+            </div>
+          </div>
+        )}
       </div>
     )
   }
@@ -71,5 +86,9 @@ ContainerJSON.PropTypes = {
     PropTypes.array
   ]).isRequired,
   isExpanded: PropTypes.bool.isRequired,
-  settings: PropTypes.object.isRequired
+  isSubview: PropTypes.bool.isRequired,
+  path: PropTypes.string,
+  settings: PropTypes.object.isRequired,
+  style: PropTypes.object,
+  updateSubviews: PropTypes.func.isRequired
 }

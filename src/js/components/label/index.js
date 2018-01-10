@@ -10,6 +10,7 @@ export class Label extends React.Component {
     this.copy = this.copy.bind(this)
     this.copyPath = this.copyPath.bind(this)
     this.copyData = this.copyData.bind(this)
+    this.openSubview = this.openSubview.bind(this)
   }
 
   componentDidMount () {
@@ -56,6 +57,15 @@ export class Label extends React.Component {
     this.refs[this.props.path].classList = 'json-viewer-react-contextmenu json-viewer-react-hide'
   }
 
+  openSubview (event) {
+    event.stopPropagation()
+    this.props.updateSubviews({
+      props: this.props,
+      subviewId: this.props.path,
+      method: 'open'
+    })
+  }
+
   render () {
     return (
       <span data-path={this.props.path}>
@@ -69,6 +79,12 @@ export class Label extends React.Component {
             <div className='fa fa-fw fa-clone' />
             <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Copy Data</div>
           </p>
+          {!this.props.isSubview && (
+            <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.openSubview}>
+              <div className='fa fa-fw fa-clone' />
+              <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Open Subview</div>
+            </p>
+          )}
         </div>
       </span>
     )
@@ -80,6 +96,8 @@ Label.PropTypes = {
     PropTypes.object,
     PropTypes.array
   ]).isRequired,
+  isSubview: PropTypes.bool,
   path: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  updateSubviews: PropTypes.func.isRequired
 }

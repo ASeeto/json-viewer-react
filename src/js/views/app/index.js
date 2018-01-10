@@ -20,7 +20,8 @@ export class App extends React.Component {
     super()
     this.toggleIsExpanded = this.toggleIsExpanded.bind(this)
     this.toggleIsRaw = this.toggleIsRaw.bind(this)
-    this.state = {isExpanded: false, isRaw: false, isLoading: false}
+    this.updateSubviews = this.updateSubviews.bind(this)
+    this.state = {isExpanded: false, isRaw: false, isLoading: false, subviews: []}
   }
 
   componentDidMount () {
@@ -43,24 +44,47 @@ export class App extends React.Component {
     this.setState({isRaw: !this.state.isRaw})
   }
 
+  updateSubviews ({props, subviewId, method = 'close'}) {
+    const subviews = method === 'open'
+      ? this.state.subviews.concat([{props, subviewId}])
+      : _.filter(this.state.subviews, (subview) => subview.subviewId !== subviewId)
+    this.setState({subviews})
+  }
+
   render () {
     return (
       <div className='json-viewer-react-app'>
-        <Toolbar
-          data={this.props.data}
-          isRaw={this.state.isRaw}
-          isExpanded={this.state.isExpanded}
-          toggleIsRaw={this.toggleIsRaw}
-          toggleIsExpanded={this.toggleIsExpanded}
-        />
         <Path />
         <ContainerJSON
           data={this.props.data}
+          hideRoot
           isExpanded={this.state.isExpanded}
+          isSubview={false}
           settings={this.props.settings}
+          updateSubviews={this.updateSubviews}
         />
         {this.state.isRaw && <ContainerRaw data={this.props.data} />}
         {this.state.isLoading && <Spinner />}
+        {_.isEmpty(this.state.subviews) && (
+          <Toolbar
+            data={this.props.data}
+            isRaw={this.state.isRaw}
+            isExpanded={this.state.isExpanded}
+            toggleIsRaw={this.toggleIsRaw}
+            toggleIsExpanded={this.toggleIsExpanded}
+          />
+        )}
+        {this.state.subviews.map((subview, index) => (
+          <div>
+            <ContainerJSON
+              {...subview.props}
+              data={_.get(this.props.data, subview.props.path, {})}
+              hideRoot
+              isExpanded
+              isSubview
+            />
+          </div>
+        ))}
       </div>
     )
   }
