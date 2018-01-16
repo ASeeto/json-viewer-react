@@ -81,7 +81,7 @@ export class Label extends React.Component {
           </p>
           {!this.props.isSubview && (
             <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.openSubview}>
-              <div className='fa fa-fw fa-clone' />
+              <div className='fa fa-fw fa-expand' />
               <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Open Subview</div>
             </p>
           )}
