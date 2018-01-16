@@ -1,6 +1,6 @@
 {
   "name": "json-viewer-react",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Alexander Seeto",
   "description": "JSON viewer built using ReactJS. View full JSON paths on hover, copy full paths or path values, and toggle collapse of all objects.",
   "repository": "https://github.com/ASeeto/json-viewer-react",
