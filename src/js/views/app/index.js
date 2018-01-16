@@ -6,7 +6,6 @@ import cx from 'classnames'
 import {invertTheme as invertThemeFunction} from 'react-base16-styling'
 
 import {ContainerJSON} from '../../components/container_json/index'
-import {ContainerRaw} from '../../components/container_raw/index'
 import {Path} from '../../components/path/index'
 import {Spinner} from '../../components/spinner/index'
 import {Toolbar} from '../../components/toolbar/index'
@@ -19,9 +18,8 @@ export class App extends React.Component {
   constructor () {
     super()
     this.toggleIsExpanded = this.toggleIsExpanded.bind(this)
-    this.toggleIsRaw = this.toggleIsRaw.bind(this)
     this.updateSubviews = this.updateSubviews.bind(this)
-    this.state = {isExpanded: false, isRaw: false, isLoading: false, subviews: []}
+    this.state = {isExpanded: false, isLoading: false, subviews: []}
   }
 
   componentDidMount () {
@@ -38,10 +36,6 @@ export class App extends React.Component {
 
   toggleIsExpanded () {
     this.setState({isExpanded: !this.state.isExpanded})
-  }
-
-  toggleIsRaw () {
-    this.setState({isRaw: !this.state.isRaw})
   }
 
   updateSubviews ({props, subviewId, method = 'close'}) {
@@ -63,14 +57,11 @@ export class App extends React.Component {
           settings={this.props.settings}
           updateSubviews={this.updateSubviews}
         />
-        {this.state.isRaw && <ContainerRaw data={this.props.data} />}
         {this.state.isLoading && <Spinner />}
         {_.isEmpty(this.state.subviews) && (
           <Toolbar
             data={this.props.data}
-            isRaw={this.state.isRaw}
             isExpanded={this.state.isExpanded}
-            toggleIsRaw={this.toggleIsRaw}
             toggleIsExpanded={this.toggleIsExpanded}
           />
         )}

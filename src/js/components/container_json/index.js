@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import {THEMES} from '../../constants'
 
@@ -55,8 +56,11 @@ export class ContainerJSON extends React.Component {
     const shouldExpandNode = this.props.isExpanded
       ? () => true
       : () => false
+    const className = cx({
+      'json-viewer-react-sub-json-tree': this.props.isSubview
+    })
     return (
-      <div id='json-viewer-react-json-tree' className={this.props.isSubview ? 'json-viewer-react-sub-json-tree' : ''}>
+      <div id='json-viewer-react-json-tree' className={className}>
         <JSONTree
           data={this.props.data}
           hideRoot={this.props.hideRoot}

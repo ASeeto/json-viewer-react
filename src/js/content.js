@@ -16,10 +16,12 @@ chrome.storage.sync.get(INITIAL_SETTINGS, (settings) => {
       require('../../node_modules/font-awesome/css/font-awesome.min.css')
 
       const App = require('./views/app').App
-      ReactDOM.render(
-        <App data={data} settings={settings} />,
-        document.body
-      )
+
+      const AppDiv = document.createElement('div')
+      AppDiv.setAttribute('id', 'app')
+      document.body.prepend(AppDiv)
+
+      ReactDOM.render(<App data={data} settings={settings} />, AppDiv)
     }
   }
 })
