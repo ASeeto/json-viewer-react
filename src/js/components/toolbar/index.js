@@ -14,10 +14,15 @@ export class Toolbar extends React.Component {
     const ToggleViewButton = document.getElementById('json-viewer-react-toggle-view')
     const ToggleCollapseButton = document.getElementById('json-viewer-react-toggle-collapse')
     const JsonTree = document.getElementById('json-viewer-react-json-tree')
+    const RawJson = document.getElementsByTagName('pre')[0]
     
     /** Toggle View */
     ToggleViewButton.addEventListener('click', () => {
-      /** Hide json tree */
+      /** Toggle Raw JSON */
+      RawJson.classList = cx({
+        'json-viewer-react-hide': !_.includes(RawJson.classList, 'json-viewer-react-hide')
+      })
+      /** Toggle JSON Tree */
       JsonTree.classList = cx({
         'json-viewer-react-hide': !_.includes(JsonTree.classList, 'json-viewer-react-hide')
       })

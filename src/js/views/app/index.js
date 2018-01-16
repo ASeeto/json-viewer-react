@@ -32,6 +32,13 @@ export class App extends React.Component {
         node.classList = 'json-viewer-react-contextmenu json-viewer-react-hide'
       })
     })
+
+    const RawJson = document.getElementsByTagName('pre')[0]
+    RawJson.classList = 'json-viewer-react-hide'
+  }
+
+  componentWillUnmount () {
+    ReactDOM.findDOMNode(this).removeEventListener('click', () => {})
   }
 
   toggleIsExpanded () {
