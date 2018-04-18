@@ -15,11 +15,11 @@ import {THEMES} from '../../constants/index'
 import './styles.css'
 
 export class App extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.toggleIsExpanded = this.toggleIsExpanded.bind(this)
     this.updateSubviews = this.updateSubviews.bind(this)
-    this.state = {isExpanded: false, isLoading: false, subviews: []}
+    this.state = {isExpanded: props.settings.conditionalExpandAll, isLoading: false, subviews: []}
   }
 
   componentDidMount () {
@@ -63,6 +63,7 @@ export class App extends React.Component {
           isSubview={false}
           settings={this.props.settings}
           updateSubviews={this.updateSubviews}
+          rootPath=''
         />
         {this.state.isLoading && <Spinner />}
         {_.isEmpty(this.state.subviews) && (
@@ -80,6 +81,7 @@ export class App extends React.Component {
               hideRoot
               isExpanded
               isSubview
+              rootPath={subview.props.path}
             />
           </div>
         ))}

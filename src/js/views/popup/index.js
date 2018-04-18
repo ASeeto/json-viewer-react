@@ -9,23 +9,15 @@ import './styles.css'
 export class Popup extends React.Component {
   constructor (props) {
     super(props)
-    this.toggleEnabled = this.toggleEnabled.bind(this)
-    this.toggleInvertTheme = this.toggleInvertTheme.bind(this)
+    this.toggleSetting = this.toggleSetting.bind(this)
     this.handleOnChange = this.handleOnChange.bind(this)
     this.state = props.settings
   }
 
-  toggleEnabled () {
-    const enabled = !this.state.enabled
-    chrome.storage.sync.set({enabled}, () => {
-      this.setState({enabled})
-    })
-  }
-
-  toggleInvertTheme () {
-    const invertTheme = !this.state.invertTheme
-    chrome.storage.sync.set({invertTheme}, () => {
-      this.setState({invertTheme})
+  toggleSetting (setting) {
+    const newState = _.set({}, setting, !this.state[setting])
+    chrome.storage.sync.set(newState, () => {
+      this.setState(newState)
     })
   }
 
@@ -43,17 +35,24 @@ export class Popup extends React.Component {
           <div className='json-viewer-react-title'>Extension Settings</div>
           <div className='json-viewer-react-flex'>
             <label className='json-viewer-react-switch'>
-              <input onClick={this.toggleEnabled} type='checkbox' checked={this.state.enabled} />
+              <input onClick={this.toggleSetting.bind(this, 'enabled')} type='checkbox' checked={this.state.enabled} />
               <span className='json-viewer-react-slider json-viewer-react-round' />
             </label>
             <div className='json-viewer-react-subtitle'>Click to {this.state.enabled ? 'Disable' : 'Enable'}</div>
           </div>
           <div className='json-viewer-react-flex'>
             <label className='json-viewer-react-switch'>
-              <input onClick={this.toggleInvertTheme} type='checkbox' checked={this.state.invertTheme} />
+              <input onClick={this.toggleSetting.bind(this, 'invertTheme')} type='checkbox' checked={this.state.invertTheme} />
               <span className='json-viewer-react-slider json-viewer-react-round' />
             </label>
             <div className='json-viewer-react-subtitle'>Invert Theme</div>
+          </div>
+          <div className='json-viewer-react-flex'>
+            <label className='json-viewer-react-switch'>
+              <input onClick={this.toggleSetting.bind(this, 'conditionalExpandAll')} type='checkbox' checked={this.state.conditionalExpandAll} />
+              <span className='json-viewer-react-slider json-viewer-react-round' />
+            </label>
+            <div className='json-viewer-react-subtitle'>Conditional Expand All</div>
           </div>
           <div className='json-viewer-react-title'>Select a Theme</div>
           <select id='json-viewer-react-theme' name='json-viewer-react-theme' onChange={this.handleOnChange}>

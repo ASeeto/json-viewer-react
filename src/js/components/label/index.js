@@ -52,7 +52,7 @@ export class Label extends React.Component {
     event.stopPropagation()
     this.copy({
       id: 'copy-path',
-      value: this.props.path
+      value: this.props.rootPath + this.props.path
     })
     this.refs[this.props.path].classList = 'json-viewer-react-contextmenu json-viewer-react-hide'
   }
@@ -68,7 +68,7 @@ export class Label extends React.Component {
 
   render () {
     return (
-      <span data-path={this.props.path}>
+      <span data-path={this.props.rootPath + this.props.path}>
         {this.props.text}
         <div ref={this.props.path} className={'json-viewer-react-contextmenu json-viewer-react-hide'}>
           <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.copyPath}>

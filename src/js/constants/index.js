@@ -82,4 +82,9 @@ export const THEMES = {
   Twilight: themeTwilight
 }
 
-export const INITIAL_SETTINGS = _.merge({}, {enabled: true, invertTheme: true, theme: 'Default'})
+export const INITIAL_SETTINGS = _.merge({}, {
+  enabled: true,
+  invertTheme: true,
+  conditionalExpandAll: false,
+  theme: 'Default'
+})

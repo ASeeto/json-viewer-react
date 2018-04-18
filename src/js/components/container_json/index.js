@@ -54,7 +54,9 @@ export class ContainerJSON extends React.Component {
   render () {
     const theme = THEMES[this.props.settings.theme]
     const shouldExpandNode = this.props.isExpanded
-      ? () => true
+      ? this.props.settings.conditionalExpandAll
+        ? (keyName, data, level) => !(_.size(data) > 1 && _.isArray(data))
+        : () => true
       : () => false
     const className = cx({
       'json-viewer-react-sub-json-tree': this.props.isSubview
@@ -92,6 +94,7 @@ ContainerJSON.PropTypes = {
   isExpanded: PropTypes.bool.isRequired,
   isSubview: PropTypes.bool.isRequired,
   path: PropTypes.string,
+  rootPath: PropTypes.string,
   settings: PropTypes.object.isRequired,
   style: PropTypes.object,
   updateSubviews: PropTypes.func.isRequired
