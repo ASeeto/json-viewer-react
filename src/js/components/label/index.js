@@ -10,6 +10,7 @@ export class Label extends React.Component {
     this.copy = this.copy.bind(this)
     this.copyPath = this.copyPath.bind(this)
     this.copyData = this.copyData.bind(this)
+    this.copyTransposed = this.copyTransposed.bind(this)
     this.openSubview = this.openSubview.bind(this)
   }
 
@@ -25,6 +26,50 @@ export class Label extends React.Component {
       this.refs[this.props.path].classList = 'json-viewer-react-contextmenu'
       return false
     })
+  }
+
+  copyTransposed (event) {
+    event.stopPropagation()
+    const id = 'copy-transposed'
+    const value = _.get(this.props.data, this.props.path)
+    const table = document.createElement('table')
+    let innerHTML = ''
+
+    table.setAttribute('id', id)
+
+    innerHTML += '<tr>'
+
+    _.forEach(value, (data) => {
+      innerHTML += `<td>${data}</td>`
+    })
+
+    innerHTML += '</tr>'
+
+    table.innerHTML = innerHTML
+    table.setAttribute('style', 'position: fixed;')
+    document.body.appendChild(table)
+    document.getElementById(id).focus()
+
+    if (document.createRange && window.getSelection) {
+      const range = document.createRange();
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      try {
+          range.selectNodeContents(table);
+          sel.addRange(range);
+      } catch (e) {
+          range.selectNode(table);
+          sel.addRange(range);
+      }
+    } else if (document.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(table);
+        range.select();
+    }
+
+    document.execCommand('copy')
+    document.body.removeChild(table)
+    this.refs[this.props.path].classList = 'json-viewer-react-contextmenu json-viewer-react-hide'
   }
 
   copy ({id, value}) {
@@ -67,6 +112,7 @@ export class Label extends React.Component {
   }
 
   render () {
+    const data = _.get(this.props.data, this.props.path)
     return (
       <span data-path={this.props.rootPath + this.props.path}>
         {this.props.text}
@@ -79,6 +125,12 @@ export class Label extends React.Component {
             <div className='fa fa-fw fa-clone' />
             <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Copy Data</div>
           </p>
+          {_.isArray(data) && _.every(data, (d) => !_.isObject()) && (
+            <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.copyTransposed}>
+              <div className='fa fa-fw fa-expand' />
+              <div className='json-viewer-react-contextmenu-option-text json-viewer-react-no-select'>Copy Data (Transposed)</div>
+            </p>
+          )}
           {!this.props.isSubview && (
             <p className='json-viewer-react-p json-viewer-react-contextmenu-option' onClick={this.openSubview}>
               <div className='fa fa-fw fa-expand' />
