@@ -1,6 +1,6 @@
 {
   "name": "JSON Viewer React",
-  "browser_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": "json-viewer-react-icon-16.png"
   },
@@ -20,12 +20,14 @@
     "48": "json-viewer-react-icon-48.png",
     "128": "json-viewer-react-icon-128.png" 
   },
-  "permissions":[
-    "activeTab",
-    "storage",
-    "*://*/*",
-    "<all_urls>"
+  "permissions": [
+    "storage"
   ],
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "optional_host_permissions": [
+    "*://*/*"
+  ],
+  "manifest_version": 3,
+  "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self';"
+  }
 }
